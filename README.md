@@ -24,25 +24,19 @@ You can start asahina_bot locally by running:
 
 You'll see some start up output and a prompt:
 
-    [Sat Feb 28 2015 12:38:27 GMT+0000 (GMT)] INFO Using default redis on localhost:6379
     asahina_bot>
 
 Then you can interact with asahina_bot by typing `asahina_bot help`.
 
     asahina_bot> asahina_bot help
-    asahina_bot animate me <query> - The same thing as `image me`, except adds [snip]
-    asahina_bot help - Displays all of the help commands that asahina_bot knows about.
-    ...
 
 ### Deploy heroku
 
     % heroku login
     % heroku create
     % heroku config:set HUBOT_HEROKU_KEEPALIVE_URL=YOUR_HEROKU_URL
+    % heroku config:set HUBOT_SLACK_CHANNEL=YOUR_SLACK_CHANNEL
+    % heroku config:set HUBOT_SLACK_USER_NAME=YOUR_SLACK_USER_NAME
+    % heroku config:set HUBOT_SLACK_TOKEN=YOUR_SLACK_TOKEN
     % heroku ps:scale web=1
     % git push heroku master
- 
- If you want to use in Slack, set HUBOT_SLACK_TOKEN.
-    
-    % heroku config:set HUBOT_SLACK_TOKEN=YOUR_SLACK_TOKEN
-    

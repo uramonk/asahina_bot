@@ -19,7 +19,8 @@
 #   "lodash": "^3.10.1"
 #
 # Configuration:
-#   NONE
+#   HUBOT_SLACK_CHANNEL: required
+#	HUBOT_SLACK_USER_NAME: required
 #
 # Commands:
 #	asabina_bot :doughnut: - add a doughnut
@@ -34,9 +35,40 @@
 #   uramonk <https://github.com/uramonk>
 
 require('date-utils');
-counter = require('./counter')
+CronJob = require('cron').CronJob
+counter = require('../src/counter')
+config = require '../src/config'
 
-module.exports = (robot) -> 
+module.exports = (robot) ->
+	todayJob = new CronJob(
+		cronTime: '00 00 00 * * 0-6'
+		onTick: ->
+			showCountToday()
+			return
+		start: true
+	)
+	showCountToday = () ->
+		count = counter.getCountYesterday
+		slackChannel = config.getSlackChannel()
+		if slackChannel
+			envelope = room: slackChannel
+			robot.send '今日食べたドーナツは' + count + '個だよ！'
+		
+	weekJob = new CronJob(
+		cronTime: '00 00 00 * * 0'
+		onTick: ->
+			showCountWeek()
+			return
+		start: true
+	)
+	showCountWeek = () ->
+		count = counter.getCountWeek robot
+		counter.clearCountWeek robot
+		slackChannel = config.getSlackChannel()
+		if slackChannel
+			envelope = room: slackChannel
+			robot.send '今週食べたドーナツは' + count + '個だよ！'
+	
 	robot.respond /(:doughnut:)/, (msg) ->
 		count = counter.addCountToday robot, 1
 		msg.send 'ドーナツ' + count + '個食べたよ！'
@@ -44,6 +76,10 @@ module.exports = (robot) ->
 	robot.respond /count today/, (msg) ->
 		count = counter.getCountToday robot
 		msg.send '今日食べたドーナツは' + count + '個だよ！'
+	
+	robot.respond /count week/, (msg) ->
+		count = counter.getCountWeek robot
+		msg.send '今週食べたドーナツは' + count + '個だよ！'
 		
 	robot.respond /count total/, (msg) ->
 		count = counter.getCountTotal robot
