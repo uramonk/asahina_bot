@@ -81,7 +81,7 @@ module.exports = (robot) ->
 		count = counter.getCountTotal robot
 		msg.send '今まで食べたドーナツは' + count + '個だよ！'
 	
-	robot.respond /count clear today/, (msg) ->
+	robot.respond /clear today/, (msg) ->
 		count = counter.clearCountToday robot
 		msg.send '今日ドーナツ食べたと思ったら夢だった…'
 	
@@ -89,7 +89,6 @@ module.exports = (robot) ->
 		if respond_flag
 			respond_flag = false
 			return
-			
 		num = Math.floor(Math.random() * 3) + 1
 		switch num
 			when 1
