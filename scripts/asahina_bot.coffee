@@ -37,7 +37,7 @@
 require('date-utils');
 CronJob = require('cron').CronJob
 counter = require('../src/counter')
-config = require '../src/config'
+config = require('../src/config')
 
 module.exports = (robot) ->		
 	weekJob = new CronJob(
@@ -61,9 +61,10 @@ module.exports = (robot) ->
 			else if count >= 5
 				robot.send envelope, 'リングドーナツ、ツイストドーナツ、あんドーナツ、ジェリードーナツ、マラサダ、サーターアンダギー\nドーナツの神様！私に素敵な出会いがありますように！'
 	
-	robot.respond /(:doughnut:)/, (msg) ->
-		count = counter.addCountToday robot, 1
-		msg.send 'ドーナツ' + count + '個食べたよ！'
+	robot.respond /:doughnut:/, (msg) ->
+		dc = msg.message.text.split(/:doughnut:/).length - 1;
+		count = counter.addCountToday robot, dc
+		msg.send 'ドーナツ' + dc + '個食べたよ！'
 	
 	robot.respond /count today/, (msg) ->
 		count = counter.getCountToday robot
@@ -80,7 +81,4 @@ module.exports = (robot) ->
 	robot.respond /count clear today/, (msg) ->
 		count = counter.clearCountToday robot
 		msg.send '今日食べたドーナツが' + count + '個になっちゃった…'
-		
-	###robot.respond /count clear total/, (msg) ->
-		count = clearCountTotal robot
-		msg.send '今まで食べたドーナツが' + count + '個になっちゃった…'###
+	
