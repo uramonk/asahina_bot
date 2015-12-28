@@ -51,10 +51,11 @@ module.exports = {
 		count = robot.brain.get key or 0
 		if count == null
 			count = 0
-		robot.brain.set key, count + addcount
+		addnum = count + addcount
+		if addnum < 0
+			addnum = 0
+		robot.brain.set key, addnum
 		robot.brain.save
-		if robot.brain.get key < 0
-			return 0
 		return robot.brain.get key
 	
 	addCountToday: (robot, addcount) ->
