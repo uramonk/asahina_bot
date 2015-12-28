@@ -74,6 +74,12 @@ module.exports = (robot) ->
 	robot.respond /count total/, (msg) ->
 		count = counter.getCountTotal robot
 		msg.send '今まで食べたドーナツは' + count + '個だよ！'
+		
+	robot.respond /count day (\d{4}\/\d{2}\/\d{2})$/, (msg) ->
+		date = new Date(msg.match[1])
+		count = counter.getCount robot, msg.match[1].replace /\//g, ''
+		dateString = date.toFormat 'YYYY年MM月DD日'
+		msg.send dateString + 'に食べたドーナツは' + count + '個だよ！'
 	
 	robot.respond /clear today/, (msg) ->
 		count = counter.clearCountToday robot
