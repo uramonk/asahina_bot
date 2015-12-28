@@ -15,8 +15,8 @@ has, etc!
 ### Running asahina_bot Locally
 
 You can test your hubot by running the following, however some plugins will not
-behave as expected unless the [environment variables](#configuration) they rely
-upon have been set.
+behave as expected unless the environment variables they rely upon have been 
+set.
 
 You can start asahina_bot locally by running:
 
@@ -29,12 +29,18 @@ You'll see some start up output and a prompt:
 Then you can interact with asahina_bot by typing `asahina_bot help`.
 
     asahina_bot> asahina_bot help
+    asabina_bot :doughnut:  - add a doughnut
+    asabina_bot clear today - clear today doughnuts
+    asabina_bot count today - show today doughnuts
+    asabina_bot count total - show total doughnuts
+    asahina_bot help - Displays all of the help commands that asahina_bot knows about.
+    asahina_bot help <query> - Displays all help commands that match <query>.
 
 ### Deploy heroku
 
     % heroku login
     % heroku create
-    % heroku config:set HUBOT_HEROKU_KEEPALIVE_URL=YOUR_HEROKU_URL
+    % heroku config:set HUBOT_HEROKU_KEEPALIVE_URL=YOUR_HEROKU_APP_URL
     % heroku config:set HUBOT_SLACK_CHANNEL=YOUR_SLACK_CHANNEL
     % heroku config:set HUBOT_SLACK_USER_NAME=YOUR_SLACK_USER_NAME
     % heroku config:set HUBOT_SLACK_TOKEN=YOUR_SLACK_TOKEN

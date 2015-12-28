@@ -23,10 +23,10 @@
 #	HUBOT_SLACK_USER_NAME: required
 #
 # Commands:
-#	asabina_bot :doughnut: - add a doughnut
+#	asabina_bot :doughnut:  - add a doughnut
 #	asabina_bot count today - show today doughnuts
 #	asabina_bot count total - show total doughnuts
-#	asabina_bot count clear today - clear today doughnuts
+#	asabina_bot clear today - clear today doughnuts
 #
 # Notes:
 #   <optional notes required for the script>
