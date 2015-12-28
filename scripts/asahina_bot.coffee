@@ -40,7 +40,7 @@ counter = require('../src/counter')
 config = require '../src/config'
 
 module.exports = (robot) ->
-	todayJob = new CronJob(
+	###todayJob = new CronJob(
 		cronTime: '00 00 00 * * 0-6'
 		onTick: ->
 			showCountToday()
@@ -67,7 +67,7 @@ module.exports = (robot) ->
 		slackChannel = config.getSlackChannel()
 		if slackChannel
 			envelope = room: slackChannel
-			robot.send '今週食べたドーナツは' + count + '個だよ！'
+			robot.send '今週食べたドーナツは' + count + '個だよ！'###
 	
 	robot.respond /(:doughnut:)/, (msg) ->
 		count = counter.addCountToday robot, 1
