@@ -125,6 +125,25 @@ module.exports = (robot) ->
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'から今日まで食べたドーナツ、' + count + '個にしたよ'
 	
+	robot.respond /list$/, (msg) ->
+		msg.send '\'\'\''
+		firstday = counter.getFirstDay robot
+		if firstday == null
+			msg.send '\'\'\''
+			return
+		year = firstday.split('/')[0]
+		today = new Date()
+		date = new Date(year, 0, 1)
+		while true
+			count = counter.getCountYear robot, year
+			dateString = date.toFormat 'YYYY年'
+			msg.send dateString + ': ' + count + '個'
+			date.addYears(1)
+			console.log date
+			if Date.compare(date, today) == 1
+				break
+		msg.send '\'\'\''
+	
 	robot.respond /oogami$/, (msg) ->
 		msg.send 'さくらちゃん！'
 	
