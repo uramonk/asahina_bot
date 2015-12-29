@@ -76,7 +76,6 @@ module.exports = (robot) ->
 		msg.send 'ドーナツ' + dc + '個食べたんだね'	
 	
 	robot.respond /add day (\d{4}\/\d{2}\/\d{2}) (\d+)$/, (msg) ->
-		console.log msg.match
 		counter.setFirstSpecificDay robot, msg.match[1]
 		date = new Date(msg.match[1])
 		formatted = date.toFormat 'YYYYMMDD'
@@ -146,10 +145,10 @@ module.exports = (robot) ->
 		msg.send dateString + 'から今日まで食べたドーナツ、' + count + '個にしたよ'
 	
 	robot.respond /list$/, (msg) ->
-		msg.send '\'\'\''
+		msg.send '```'
 		firstday = counter.getFirstDay robot
 		if firstday == null
-			msg.send '\'\'\''
+			msg.send '```'
 			return
 		year = firstday.split('/')[0]
 		today = new Date()
@@ -161,10 +160,10 @@ module.exports = (robot) ->
 			date.addYears(1)
 			if Date.compare(date, today) == 1
 				break
-		msg.send '\'\'\''
+		msg.send '```'
 		
 	robot.respond /list month (\d{4}\/\d{2})$/, (msg) ->
-		msg.send '\'\'\''
+		msg.send '```'
 		ym = msg.match[1].split('/')
 		year = ym[0]
 		month = ym[1]
@@ -177,10 +176,10 @@ module.exports = (robot) ->
 			date.addHours(24)
 			if date.getMonth() > Number(month) - 1 or date.getFullYear() > Number(year)
 				break
-		msg.send '\'\'\''
+		msg.send '```'
 	
 	robot.respond /list year (\d{4})$/, (msg) ->
-		msg.send '\'\'\''
+		msg.send '```'
 		year = msg.match[1]
 		date = new Date(Number(year), 0, 1)
 		while true
@@ -192,7 +191,7 @@ module.exports = (robot) ->
 			date.addMonths(1)
 			if date.getFullYear() > Number(year)
 				break
-		msg.send '\'\'\''
+		msg.send '```'
 	
 	robot.respond /oogami$/, (msg) ->
 		msg.send 'さくらちゃん！'
