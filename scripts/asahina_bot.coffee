@@ -139,8 +139,23 @@ module.exports = (robot) ->
 			dateString = date.toFormat 'YYYY年'
 			msg.send dateString + ': ' + count + '個'
 			date.addYears(1)
-			console.log date
 			if Date.compare(date, today) == 1
+				break
+		msg.send '\'\'\''
+		
+	robot.respond /list month (\d{4}\/\d{2})$/, (msg) ->
+		msg.send '\'\'\''
+		ym = msg.match[1].split('/')
+		year = ym[0]
+		month = ym[1]
+		date = new Date(Number(year), Number(month) - 1, 1)
+		while true
+			formatted = date.toFormat 'YYYYMMDD'
+			count = counter.getCount robot, formatted
+			dateString = date.toFormat 'YYYY年MM月DD日'
+			msg.send dateString + ': ' + count + '個'
+			date.addHours(24)
+			if date.getMonth() > Number(month) - 1 or date.getFullYear() > Number(year)
 				break
 		msg.send '\'\'\''
 	
