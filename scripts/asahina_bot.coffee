@@ -96,7 +96,13 @@ module.exports = (robot) ->
 	
 	robot.respond /clear today/, (msg) ->
 		count = counter.clearCountToday robot
-		msg.send '今日ドーナツ食べてないことになったってどういうこと！？'
+		msg.send '今日食べたドーナツ、' + count + '個にしたよ'
+		
+	robot.respond /clear day (\d{4}\/\d{2}\/\d{2})$/, (msg) ->
+		date = new Date(msg.match[1])
+		count = counter.clearCount robot, msg.match[1].replace /\//g, ''
+		dateString = date.toFormat 'YYYY年MM月DD日'
+		msg.send dateString + 'に食べたドーナツ、' + count + '個にしたよ'
 	
 	robot.hear /:doughnut:/, (msg) ->
 		if respond_flag

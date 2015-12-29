@@ -40,9 +40,7 @@ module.exports = {
 		date = new Date(year, 0, 1)
 		count = 0
 		for month in [1..12]
-			console.log("????????????" + date)
 			count += this.getCountMonth robot, year, month
-			console.log("!!!!!!!!!!!!" + date)
 			date = date.addMonths(1)
 		return count
 	
