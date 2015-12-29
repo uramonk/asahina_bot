@@ -34,6 +34,7 @@ counter = require('../src/counter')
 config = require('../src/config')
 
 respond_flag = false
+FIRST_DAY = "firstday"
 
 module.exports = (robot) ->		
 	weekJob = new CronJob(
@@ -59,9 +60,10 @@ module.exports = (robot) ->
 	
 	robot.respond /:doughnut:/, (msg) ->
 		respond_flag = true
+		counter.setFirstDay robot
 		dc = msg.message.text.split(/:doughnut:/).length - 1;
 		count = counter.addCountToday robot, dc
-		msg.send 'ドーナツ' + dc + '個食べたよ！'
+		msg.send 'ドーナツ' + dc + '個食べたよ！'	
 	
 	robot.respond /count today/, (msg) ->
 		count = counter.getCountToday robot

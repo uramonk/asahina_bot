@@ -2,7 +2,7 @@ require('date-utils');
 dateFunc = require('../src/date')
 
 WEEKCOUNT = 'weekcount'
-TOTALCOUNT = 'totalcount'
+FIRST_DAY = "firstday"
 
 module.exports = {
 	getCount: (robot, key) -> 
@@ -43,7 +43,19 @@ module.exports = {
 		return count
 	
 	getCountTotal: (robot) ->
-		return this.getCount robot, TOTALCOUNT
+		firstday = this.getFirstDay robot
+		if firstday == null
+			return 0
+		ymd = firstday.split '/'
+		fromDate = new Date(Number(ymd[0]), Number(ymd[1]) - 1, Number(ymd[2]))
+		toDate = new Date()
+		count = 0
+		while true
+			count += this.getCount robot, fromDate.toFormat 'YYYYMMDD'
+			fromDate = fromDate.addHours(24)
+			if Date.compare(fromDate, toDate) == 1
+				break
+		return count
 		
 	clearCount: (robot, key) ->
 		robot.brain.set key, 0
@@ -53,10 +65,8 @@ module.exports = {
 	clearCountToday: (robot) ->
 		date = new Date()
 		formatted = date.toFormat 'YYYYMMDD'
-		# トータル数から今日食べた数を引く
-		count = this.getCountToday robot
-		this.subtractCountTotal robot, count
 		# 週の数から今日食べた数を引く
+		count = this.getCountToday robot
 		this.subtractCountWeek robot, count
 		return this.clearCount robot, formatted
 	
@@ -98,8 +108,6 @@ module.exports = {
 	addCountToday: (robot, addcount) ->
 		date = new Date()
 		formatted = date.toFormat 'YYYYMMDD'
-		# トータル数も増加させる
-		this.addCountTotal robot, addcount
 		# 週の数も増加させる
 		this.addCountWeek robot, addcount
 		return this.addCount robot, formatted, addcount
@@ -115,4 +123,15 @@ module.exports = {
 		
 	subtractCountTotal: (robot, subcount) ->
 		return this.addCount robot, TOTALCOUNT, subcount * -1
+		
+	setFirstDay: (robot) ->
+		date = new Date()
+		formatted = date.toFormat 'YYYY/MM/DD'
+		firstday = this.getFirstDay robot
+		if firstday == null
+			robot.brain.set FIRST_DAY, formatted
+			robot.brain.save
+			
+	getFirstDay: (robot) ->
+		return robot.brain.get FIRST_DAY
 }
