@@ -73,6 +73,14 @@ module.exports = {
 			date = date.addHours(24)
 		return count
 		
+	clearCountYear: (robot, year) ->
+		date = new Date(year, 0, 1)
+		count = 0
+		for month in [1..12]
+			count += this.clearCountMonth robot, year, month
+			date = date.addMonths(1)
+		return count
+		
 	clearCountTotal: (robot) ->
 		return this.clearCount robot, TOTALCOUNT
 	

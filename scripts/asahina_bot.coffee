@@ -111,6 +111,12 @@ module.exports = (robot) ->
 		dateString = date.toFormat 'YYYY年MM月'
 		msg.send dateString + 'に食べたドーナツ、' + count + '個にしたよ'
 	
+	robot.respond /clear year (\d{4})$/, (msg) ->
+		count = counter.clearCountYear robot, Number(msg.match[1])
+		date = new Date(msg.match[1])
+		dateString = date.toFormat 'YYYY年'
+		msg.send dateString + 'に食べたドーナツ、' + count + '個にしたよ'
+	
 	robot.hear /:doughnut:/, (msg) ->
 		if respond_flag
 			respond_flag = false
