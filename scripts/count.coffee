@@ -7,7 +7,7 @@ module.exports = (robot) ->
 		msg.send '今日食べたドーナツは' + count + '個だよ'
 	
 	robot.respond /count week$/, (msg) ->
-		count = counter.getCountWeek robot
+		count = counter.getCountWeekFromToday robot
 		msg.send '今週食べたドーナツは' + count + '個だよ'
 		
 	robot.respond /count total$/, (msg) ->

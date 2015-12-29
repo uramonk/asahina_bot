@@ -11,8 +11,8 @@ module.exports = (robot) ->
 		start: true
 	)
 	showCountWeek = () ->
-		count = counter.getCountWeek robot
-		counter.clearCountWeek robot
+		date = Date.yesterday()
+		count = counter.getCountWeek robot, date
 		slackChannel = config.getSlackChannel()
 		if slackChannel != null
 			envelope = {room: slackChannel}

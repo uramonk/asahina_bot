@@ -20,13 +20,16 @@ module.exports = {
 		formatted = date.toFormat 'YYYYMMDD'
 		return this.getCount robot, formatted
 	
-	getCountWeek: (robot) ->
+	getCountWeekFromToday: (robot) ->
 		date = new Date()
+		return this.getCountWeek robot, date
+	
+	getCountWeek: (robot, fromDate) ->
 		count = 0
 		while true
-			count += this.getCount robot, date.toFormat 'YYYYMMDD'
-			date = date.addHours(-24)
-			daynum = date.getDay()
+			count += this.getCount robot, fromDate.toFormat 'YYYYMMDD'
+			fromDate = fromDate.addHours(-24)
+			daynum = fromDate.getDay()
 			# 土曜日なら終了
 			if daynum == 6
 				break
