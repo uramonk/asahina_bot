@@ -26,12 +26,24 @@ module.exports = {
 	
 	getCountMonth: (robot, year, month) ->
 		# new Dateの時はmonthを-1する
-		date = new Date(year, month - 1)
+		date = new Date(year, month - 1, 1)
 		daysInMonth = dateFunc.getDaysInMonth year, month
 		count = 0
-		for i in [0..daysInMonth]
-			date = date.addHours(24)
+		for i in [1..daysInMonth]
+			console.log(date)
 			count += this.getCount robot, date.toFormat 'YYYYMMDD'
+			date = date.addHours(24)
+		return count
+	
+	getCountYear: (robot, year) ->
+		console.log(year)
+		date = new Date(year, 0, 1)
+		count = 0
+		for month in [1..12]
+			console.log("????????????" + date)
+			count += this.getCountMonth robot, year, month
+			console.log("!!!!!!!!!!!!" + date)
+			date = date.addMonths(1)
 		return count
 	
 	getCountTotal: (robot) ->
