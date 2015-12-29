@@ -159,6 +159,21 @@ module.exports = (robot) ->
 				break
 		msg.send '\'\'\''
 	
+	robot.respond /list year (\d{4})$/, (msg) ->
+		msg.send '\'\'\''
+		year = msg.match[1]
+		date = new Date(Number(year), 0, 1)
+		while true
+			formatted = date.toFormat 'YYYYMMDD'
+			# getMonthは0-11なので1加える
+			count = counter.getCountMonth robot, Number(year), date.getMonth() + 1
+			dateString = date.toFormat 'YYYY年MM月'
+			msg.send dateString + ': ' + count + '個'
+			date.addMonths(1)
+			if date.getFullYear() > Number(year)
+				break
+		msg.send '\'\'\''
+	
 	robot.respond /oogami$/, (msg) ->
 		msg.send 'さくらちゃん！'
 	
