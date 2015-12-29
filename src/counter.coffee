@@ -30,13 +30,11 @@ module.exports = {
 		daysInMonth = dateFunc.getDaysInMonth year, month
 		count = 0
 		for i in [1..daysInMonth]
-			console.log(date)
 			count += this.getCount robot, date.toFormat 'YYYYMMDD'
 			date = date.addHours(24)
 		return count
 	
 	getCountYear: (robot, year) ->
-		console.log(year)
 		date = new Date(year, 0, 1)
 		count = 0
 		for month in [1..12]
@@ -64,6 +62,16 @@ module.exports = {
 	
 	clearCountWeek: (robot) ->
 		return this.clearCount robot, WEEKCOUNT
+	
+	clearCountMonth: (robot, year, month) ->
+		# new Dateの時はmonthを-1する
+		date = new Date(year, month - 1, 1)
+		daysInMonth = dateFunc.getDaysInMonth year, month
+		count = 0
+		for i in [1..daysInMonth]
+			count += this.clearCount robot, date.toFormat 'YYYYMMDD'
+			date = date.addHours(24)
+		return count
 		
 	clearCountTotal: (robot) ->
 		return this.clearCount robot, TOTALCOUNT
