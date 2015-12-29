@@ -81,9 +81,16 @@ module.exports = (robot) ->
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'に食べたドーナツは' + count + '個だよ！'
 	
+	robot.respond /count month (\d{4}\/\d{2})$/, (msg) ->
+		yearMonthString = msg.match[1].split '/'
+		count = counter.getCountMonth robot, Number(yearMonthString[0]), Number(yearMonthString[1])
+		date = new Date(msg.match[1])
+		dateString = date.toFormat 'YYYY年MM月'
+		msg.send dateString + 'に食べたドーナツは' + count + '個だよ！'
+	
 	robot.respond /clear today/, (msg) ->
 		count = counter.clearCountToday robot
-		msg.send '今日ドーナツ食べたと思ったら夢だった…'
+		msg.send '今日ドーナツ食べてないことになったってどういうこと！？'
 	
 	robot.hear /:doughnut:/, (msg) ->
 		if respond_flag

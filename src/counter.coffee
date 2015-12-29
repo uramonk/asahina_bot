@@ -1,4 +1,5 @@
 require('date-utils');
+dateFunc = require('../src/date')
 
 WEEKCOUNT = 'weekcount'
 TOTALCOUNT = 'totalcount'
@@ -22,6 +23,16 @@ module.exports = {
 	
 	getCountWeek: (robot) ->
 		return this.getCount robot, WEEKCOUNT
+	
+	getCountMonth: (robot, year, month) ->
+		# new Dateの時はmonthを-1する
+		date = new Date(year, month - 1)
+		daysInMonth = dateFunc.getDaysInMonth year, month
+		count = 0
+		for i in [0..daysInMonth]
+			date = date.addHours(24)
+			count += this.getCount robot, date.toFormat 'YYYYMMDD'
+		return count
 	
 	getCountTotal: (robot) ->
 		return this.getCount robot, TOTALCOUNT
