@@ -64,15 +64,15 @@ module.exports = (robot) ->
 		count = counter.addCountToday robot, dc
 		msg.send 'ドーナツ' + dc + '個食べたよ！'	
 	
-	robot.respond /count today/, (msg) ->
+	robot.respond /count today$/, (msg) ->
 		count = counter.getCountToday robot
 		msg.send '今日食べたドーナツは' + count + '個だよ！'
 	
-	robot.respond /count week/, (msg) ->
+	robot.respond /count week$/, (msg) ->
 		count = counter.getCountWeek robot
 		msg.send '今週食べたドーナツは' + count + '個だよ！'
 		
-	robot.respond /count total/, (msg) ->
+	robot.respond /count total$/, (msg) ->
 		count = counter.getCountTotal robot
 		msg.send '今まで食べたドーナツは' + count + '個だよ！'
 		
@@ -95,7 +95,7 @@ module.exports = (robot) ->
 		dateString = date.toFormat 'YYYY年'
 		msg.send dateString + 'に食べたドーナツは' + count + '個だよ！'
 	
-	robot.respond /clear today/, (msg) ->
+	robot.respond /clear today$/, (msg) ->
 		count = counter.clearCountToday robot
 		msg.send '今日食べたドーナツ、' + count + '個にしたよ'
 		
@@ -124,6 +124,9 @@ module.exports = (robot) ->
 		date = new Date(firstday)
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'から今日まで食べたドーナツ、' + count + '個にしたよ'
+	
+	robot.respond /oogami$/, (msg) ->
+		msg.send 'さくらちゃん！'
 	
 	robot.hear /:doughnut:/, (msg) ->
 		if respond_flag
