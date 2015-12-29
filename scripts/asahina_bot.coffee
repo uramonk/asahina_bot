@@ -34,7 +34,6 @@ counter = require('../src/counter')
 config = require('../src/config')
 
 respond_flag = false
-FIRST_DAY = "firstday"
 
 module.exports = (robot) ->		
 	weekJob = new CronJob(
@@ -118,6 +117,13 @@ module.exports = (robot) ->
 		date = new Date(msg.match[1])
 		dateString = date.toFormat 'YYYY年'
 		msg.send dateString + 'に食べたドーナツ、' + count + '個にしたよ'
+	
+	robot.respond /clear all/, (msg) ->
+		count = counter.clearCountAll robot
+		firstday = counter.getFirstDay robot
+		date = new Date(firstday)
+		dateString = date.toFormat 'YYYY年MM月DD日'
+		msg.send dateString + 'から今日まで食べたドーナツ、' + count + '個にしたよ'
 	
 	robot.hear /:doughnut:/, (msg) ->
 		if respond_flag

@@ -47,6 +47,7 @@ module.exports = {
 		if firstday == null
 			return 0
 		ymd = firstday.split '/'
+		# new Dateの時はmonthを-1する
 		fromDate = new Date(Number(ymd[0]), Number(ymd[1]) - 1, Number(ymd[2]))
 		toDate = new Date()
 		count = 0
@@ -91,8 +92,21 @@ module.exports = {
 			date = date.addMonths(1)
 		return count
 		
-	clearCountTotal: (robot) ->
-		return this.clearCount robot, TOTALCOUNT
+	clearCountAll: (robot) ->
+		firstday = this.getFirstDay robot
+		if firstday == null
+			return 0
+		ymd = firstday.split '/'
+		# new Dateの時はmonthを-1する
+		fromDate = new Date(Number(ymd[0]), Number(ymd[1]) - 1, Number(ymd[2]))
+		toDate = new Date()
+		count = 0
+		while true
+			count += this.clearCount robot, fromDate.toFormat 'YYYYMMDD'
+			fromDate = fromDate.addHours(24)
+			if Date.compare(fromDate, toDate) == 1
+				break
+		return count
 	
 	addCount: (robot, key, addcount) ->
 		count = robot.brain.get key or 0
