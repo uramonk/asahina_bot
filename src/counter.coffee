@@ -73,11 +73,11 @@ module.exports = {
 		return count
 		
 	clearCount: (robot, key) ->
-		count = this.getCount robot, key
-		if count == 0
+		count = robot.brain.get key
+		if count == null
 			return count
 		else
-			robot.brain.set key, 0
+			robot.brain.remove key
 			robot.brain.save
 			return this.getCount robot, key
 		
@@ -118,6 +118,7 @@ module.exports = {
 			fromDate = fromDate.addHours(24)
 			if Date.compare(fromDate, toDate) == 1
 				break
+		this.clearCount robot, FIRST_DAY
 		return count
 	
 	addCount: (robot, key, addcount) ->
