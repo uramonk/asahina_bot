@@ -1,3 +1,14 @@
+# Description
+#   This file defines cron operations. 
+#
+# Dependencies:
+#   "date-utils": "^1.2.17"
+#   "../src/counter"
+#	"../src/config"
+#
+# Author:
+#   uramonk <https://github.com/uramonk>
+
 CronJob = require('cron').CronJob
 counter = require('../src/counter')
 config = require('../src/config')

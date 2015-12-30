@@ -1,3 +1,18 @@
+# Description
+#   This file defines `list` commands. 
+#
+# Dependencies:
+#   "date-utils": "^1.2.17"
+#   "../src/counter"
+#
+# Commands:
+#	asabina_bot list		- list all doughnuts
+#	asabina_bot list month YYYY/MM	- list specified month's doughnuts
+#	asabina_bot list year YYYY	- list specified year's doughnuts
+#
+# Author:
+#   uramonk <https://github.com/uramonk>
+
 require('date-utils');
 counter = require('../src/counter')
 

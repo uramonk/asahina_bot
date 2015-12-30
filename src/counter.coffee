@@ -1,3 +1,6 @@
+# Author:
+#   uramonk <https://github.com/uramonk>
+
 require('date-utils');
 dateFunc = require('../src/date')
 
@@ -145,7 +148,6 @@ module.exports = {
 		formatted = date.toFormat 'YYYY/MM/DD'
 		firstday = this.getFirstDay robot
 		firstDate = new Date(firstday)
-		console.log Date.compare(date, firstDate) 
 		if firstday == null or Date.compare(date, firstDate) == -1
 			robot.brain.set FIRST_DAY, formatted
 			robot.brain.save

@@ -1,3 +1,20 @@
+# Description
+#   This file defines `clear` commands. 
+#
+# Dependencies:
+#   "date-utils": "^1.2.17"
+#   "../src/counter"
+#
+# Commands:
+#	asabina_bot clear today		- clear today's doughnuts
+#	asabina_bot clear all		- clear all doughnuts
+#	asabina_bot clear day YYYYMM/DD - clear specified day's doughnuts
+#	asabina_bot clear month YYYY/MM - clear specified month's doughnuts
+#	asabina_bot clear year YYYY	- clear specified year's doughnuts
+#
+# Author:
+#   uramonk <https://github.com/uramonk>
+
 require('date-utils');
 counter = require('../src/counter')
 

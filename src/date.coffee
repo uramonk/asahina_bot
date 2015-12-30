@@ -1,3 +1,6 @@
+# Author:
+#   uramonk <https://github.com/uramonk>
+
 require('date-utils');
 
 module.exports = {
