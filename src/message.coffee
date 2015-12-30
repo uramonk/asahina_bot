@@ -1,9 +1,12 @@
 module.exports = {
 	addDoughnutToMessage: (message, count) ->
+		if count <= 0
+			message += '\n'
+			return message
 		if count >= 10
 			message += ':doughnut:x' + count + '\n'
 			return message
-		for i in [1..count]
+		for i in [0..count-1]
 			message += ':doughnut:'
 		message += '\n'
 		return message
