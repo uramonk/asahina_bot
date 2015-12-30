@@ -6,9 +6,9 @@
 #   "../src/counter"
 #
 # Commands:
-#	asabina_bot count today		- show today's doughnuts
-#	asabina_bot count week		- show week's (from Sunday to Today) doughnuts
-#	asabina_bot count total		- show total doughnuts
+#	asabina_bot count today - show today's doughnuts
+#	asabina_bot count week - show week's (from Sunday to Today) doughnuts
+#	asabina_bot count total - show total doughnuts
 #	asabina_bot count day YYYYMM/DD - show specified day's doughnuts
 #	asabina_bot count month YYYY/MM - show specified month's doughnuts
 #	asabina_bot count year YYYY	- show specified year's doughnuts

@@ -6,8 +6,8 @@
 #   "../src/counter"
 #
 # Commands:
-#	asabina_bot clear today		- clear today's doughnuts
-#	asabina_bot clear all		- clear all doughnuts
+#	asabina_bot clear today - clear today's doughnuts
+#	asabina_bot clear all - clear all doughnuts
 #	asabina_bot clear day YYYYMM/DD - clear specified day's doughnuts
 #	asabina_bot clear month YYYY/MM - clear specified month's doughnuts
 #	asabina_bot clear year YYYY	- clear specified year's doughnuts

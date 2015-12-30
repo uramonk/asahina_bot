@@ -10,7 +10,7 @@
 #	HUBOT_SLACK_USER_NAME: required
 #
 # Commands:
-#	asabina_bot :doughnut:		- add a doughnut
+#	asabina_bot :doughnut: - add a doughnut
 #
 # Author:
 #   uramonk <https://github.com/uramonk>

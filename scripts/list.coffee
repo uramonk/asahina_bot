@@ -4,19 +4,21 @@
 # Dependencies:
 #   "date-utils": "^1.2.17"
 #   "../src/counter"
+#   "../src/message"
 #
 # Commands:
-#	asabina_bot list		- list all doughnuts
-#	asabina_bot list month YYYY/MM	- list specified month's doughnuts
-#	asabina_bot list year YYYY	- list specified year's doughnuts
+#	asabina_bot list - list all doughnuts
+#	asabina_bot list month YYYY/MM - list specified month's doughnuts
+#	asabina_bot list year YYYY - list specified year's doughnuts
 #
 # Author:
 #   uramonk <https://github.com/uramonk>
 
 require('date-utils');
 counter = require('../src/counter')
+msgFunc = require('../src/message')
 
-module.exports = (robot) ->
+module.exports = (robot) ->		
 	robot.respond /list$/, (msg) ->
 		firstday = counter.getFirstDay robot
 		if firstday == null
@@ -28,7 +30,7 @@ module.exports = (robot) ->
 		while true
 			count = counter.getCountYear robot, year
 			dateString = date.toFormat 'YYYY年'
-			sendMessage += dateString + ': ' + count + '個\n'
+			sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', ''
 			date.addYears(1)
 			if Date.compare(date, today) == 1
 				break
@@ -44,7 +46,7 @@ module.exports = (robot) ->
 			formatted = date.toFormat 'YYYYMMDD'
 			count = counter.getCount robot, formatted
 			dateString = date.toFormat 'YYYY年MM月DD日'
-			sendMessage += dateString + ': ' + count + '個\n'
+			sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', ''
 			date.addHours(24)
 			if date.getMonth() > Number(month) - 1 or date.getFullYear() > Number(year)
 				break
@@ -59,7 +61,7 @@ module.exports = (robot) ->
 			# getMonthは0-11なので1加える
 			count = counter.getCountMonth robot, Number(year), date.getMonth() + 1
 			dateString = date.toFormat 'YYYY年MM月'
-			sendMessage += dateString + ': ' + count + '個\n'
+			sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', ''
 			date.addMonths(1)
 			if date.getFullYear() > Number(year)
 				break
