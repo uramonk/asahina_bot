@@ -8,7 +8,7 @@ FIRST_DAY = "firstday"
 
 module.exports = {
 	getCount: (robot, key) -> 
-		count = robot.brain.get key or 0
+		count = robot.brain.get key
 		if count == null
 			count = 0
 		return count
@@ -73,9 +73,13 @@ module.exports = {
 		return count
 		
 	clearCount: (robot, key) ->
-		robot.brain.set key, 0
-		robot.brain.save
-		return robot.brain.get key
+		count = this.getCount robot, key
+		if count == 0
+			return count
+		else
+			robot.brain.set key, 0
+			robot.brain.save
+			return this.getCount robot, key
 		
 	clearCountToday: (robot) ->
 		date = new Date()
@@ -117,7 +121,7 @@ module.exports = {
 		return count
 	
 	addCount: (robot, key, addcount) ->
-		count = robot.brain.get key or 0
+		count = robot.brain.get key
 		if count == null
 			count = 0
 		addnum = count + addcount
