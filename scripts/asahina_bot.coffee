@@ -31,8 +31,8 @@ module.exports = (robot) ->
 	robot.respond /add day (\d{4}\/\d{2}\/\d{2}) (\d+)$/, (msg) ->
 		counter.setFirstSpecificDay robot, msg.match[1]
 		date = new Date(msg.match[1])
-		formatted = date.toFormat 'YYYYMMDD'
-		count = counter.addCount robot, formatted, Number(msg.match[2])
+		key = counter.getKey date
+		count = counter.addCount robot, key, Number(msg.match[2])
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'にドーナツ' + msg.match[2] + '個食べたんだね'
 	

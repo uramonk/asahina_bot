@@ -4,9 +4,12 @@
 require('date-utils');
 dateFunc = require('../src/date')
 
-FIRST_DAY = "firstday"
+FIRST_DAY = "asahina_bot_firstday"
 
 module.exports = {
+	getKey: (date) ->
+		return 'asahina_bot_' + date.toFormat 'YYYYMMDD'
+		
 	getCount: (robot, key) -> 
 		count = robot.brain.get key
 		if count == null
@@ -15,13 +18,13 @@ module.exports = {
 		
 	getCountToday: (robot) ->
 		date = new Date()
-		formatted = date.toFormat 'YYYYMMDD'
-		return this.getCount robot, formatted
+		key = this.getKey date
+		return this.getCount robot, key
 	
 	getCountYesterday: (robot) ->
 		date = Date.yesterday()
-		formatted = date.toFormat 'YYYYMMDD'
-		return this.getCount robot, formatted
+		key = this.getKey date
+		return this.getCount robot, key
 	
 	getCountWeekFromToday: (robot) ->
 		date = new Date()
@@ -30,7 +33,8 @@ module.exports = {
 	getCountWeek: (robot, fromDate) ->
 		count = 0
 		while true
-			count += this.getCount robot, fromDate.toFormat 'YYYYMMDD'
+			key = this.getKey fromDate
+			count += this.getCount robot, key
 			fromDate = fromDate.addHours(-24)
 			daynum = fromDate.getDay()
 			# 土曜日なら終了
@@ -44,7 +48,8 @@ module.exports = {
 		daysInMonth = dateFunc.getDaysInMonth year, month
 		count = 0
 		for i in [1..daysInMonth]
-			count += this.getCount robot, date.toFormat 'YYYYMMDD'
+			key = this.getKey date
+			count += this.getCount robot, key
 			date = date.addHours(24)
 		return count
 	
@@ -66,7 +71,8 @@ module.exports = {
 		toDate = new Date()
 		count = 0
 		while true
-			count += this.getCount robot, fromDate.toFormat 'YYYYMMDD'
+			key = this.getKey fromDate
+			count += this.getCount robot, key
 			fromDate = fromDate.addHours(24)
 			if Date.compare(fromDate, toDate) == 1
 				break
@@ -83,8 +89,8 @@ module.exports = {
 		
 	clearCountToday: (robot) ->
 		date = new Date()
-		formatted = date.toFormat 'YYYYMMDD'
-		return this.clearCount robot, formatted
+		key = this.getKey date
+		return this.clearCount robot, key
 	
 	clearCountMonth: (robot, year, month) ->
 		# new Dateの時はmonthを-1する
@@ -92,7 +98,8 @@ module.exports = {
 		daysInMonth = dateFunc.getDaysInMonth year, month
 		count = 0
 		for i in [1..daysInMonth]
-			count += this.clearCount robot, date.toFormat 'YYYYMMDD'
+			key = this.getKey date
+			count += this.clearCount robot, key
 			date = date.addHours(24)
 		return count
 		
@@ -114,7 +121,8 @@ module.exports = {
 		toDate = new Date()
 		count = 0
 		while true
-			count += this.clearCount robot, fromDate.toFormat 'YYYYMMDD'
+			key = this.getKey fromDate
+			count += this.clearCount robot, key
 			fromDate = fromDate.addHours(24)
 			if Date.compare(fromDate, toDate) == 1
 				break
@@ -134,8 +142,8 @@ module.exports = {
 	
 	addCountToday: (robot, addcount) ->
 		date = new Date()
-		formatted = date.toFormat 'YYYYMMDD'
-		return this.addCount robot, formatted, addcount
+		key = this.getKey date
+		return this.addCount robot, key, addcount
 	
 	setFirstDay: (robot) ->
 		date = new Date()

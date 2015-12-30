@@ -34,7 +34,8 @@ module.exports = (robot) ->
 		
 	robot.respond /count day (\d{4}\/\d{2}\/\d{2})$/, (msg) ->
 		date = new Date(msg.match[1])
-		count = counter.getCount robot, msg.match[1].replace /\//g, ''
+		key = counter.getKey date
+		count = counter.getCount robot, key
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'に食べたドーナツは' + count + '個だよ'
 	

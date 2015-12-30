@@ -43,8 +43,8 @@ module.exports = (robot) ->
 		date = new Date(Number(year), Number(month) - 1, 1)
 		sendMessage = ''
 		while true
-			formatted = date.toFormat 'YYYYMMDD'
-			count = counter.getCount robot, formatted
+			key = counter.getKey date
+			count = counter.getCount robot, key
 			dateString = date.toFormat 'YYYY年MM月DD日'
 			sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', ''
 			date.addHours(24)
@@ -57,7 +57,6 @@ module.exports = (robot) ->
 		date = new Date(Number(year), 0, 1)
 		sendMessage = ''
 		while true
-			formatted = date.toFormat 'YYYYMMDD'
 			# getMonthは0-11なので1加える
 			count = counter.getCountMonth robot, Number(year), date.getMonth() + 1
 			dateString = date.toFormat 'YYYY年MM月'

@@ -25,7 +25,8 @@ module.exports = (robot) ->
 		
 	robot.respond /clear day (\d{4}\/\d{2}\/\d{2})$/, (msg) ->
 		date = new Date(msg.match[1])
-		count = counter.clearCount robot, msg.match[1].replace /\//g, ''
+		key = counter.getKey date
+		count = counter.clearCount robot, key
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'に食べたドーナツ、' + count + '個にしたよ'
 	
@@ -43,8 +44,8 @@ module.exports = (robot) ->
 		msg.send dateString + 'に食べたドーナツ、' + count + '個にしたよ'
 	
 	robot.respond /clear all/, (msg) ->
-		count = counter.clearCountAll robot
 		firstday = counter.getFirstDay robot
+		count = counter.clearCountAll robot
 		date = new Date(firstday)
 		dateString = date.toFormat 'YYYY年MM月DD日'
 		msg.send dateString + 'から今日まで食べたドーナツ、' + count + '個にしたよ'
