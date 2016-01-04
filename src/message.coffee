@@ -1,14 +1,8 @@
 module.exports = {
 	addDoughnutToMessage: (message, count) ->
 		if count <= 0
-			message += '\n'
 			return message
-		if count >= 10
-			message += ':doughnut:x' + count + '\n'
-			return message
-		for i in [0..count-1]
-			message += ':doughnut:'
-		message += '\n'
+		message += 'x' + count
 		return message
 	
 	addDoughnutToMessageWithPrefixAndSuffix: (message, count, prefix, suffix) ->

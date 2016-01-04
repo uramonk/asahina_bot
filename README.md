@@ -36,7 +36,7 @@ Then you can interact with asahina_bot by typing `asahina_bot help`.
     asahina_bot help - Displays all of the help commands that asahina_bot knows about.
     asahina_bot help <query> - Displays all help commands that match <query>.
 
-### Deploy heroku
+### Deploy to heroku
 
     % heroku login
     % heroku create
