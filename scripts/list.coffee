@@ -60,7 +60,7 @@ module.exports = (robot) ->
 			# getMonthは0-11なので1加える
 			count = counter.getCountMonth robot, Number(year), date.getMonth() + 1
 			dateString = date.toFormat 'YYYY年MM月'
-			sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', ''
+			sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', '\n'
 			date.addMonths(1)
 			if date.getFullYear() > Number(year)
 				break
