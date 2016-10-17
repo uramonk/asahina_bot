@@ -1,7 +1,7 @@
 # Author:
 #   uramonk <https://github.com/uramonk>
 
-require('date-utils');
+require('date-utils')
 dateFunc = require('../src/date')
 
 FIRST_DAY = "asahina_bot_firstday"
@@ -9,27 +9,27 @@ FIRST_DAY = "asahina_bot_firstday"
 module.exports = {
 	getKey: (date) ->
 		return 'asahina_bot_' + date.toFormat 'YYYYMMDD'
-		
-	getCount: (robot, key) -> 
+
+	getCount: (robot, key) ->
 		count = robot.brain.get key
 		if count == null
 			count = 0
 		return count
-		
+
 	getCountToday: (robot) ->
 		date = new Date()
 		key = this.getKey date
 		return this.getCount robot, key
-	
+
 	getCountYesterday: (robot) ->
 		date = Date.yesterday()
 		key = this.getKey date
 		return this.getCount robot, key
-	
+
 	getCountWeekFromToday: (robot) ->
 		date = new Date()
 		return this.getCountWeek robot, date
-	
+
 	getCountWeek: (robot, fromDate) ->
 		count = 0
 		while true
@@ -41,7 +41,7 @@ module.exports = {
 			if daynum == 6
 				break
 		return count
-	
+
 	getCountMonth: (robot, year, month) ->
 		# new Dateの時はmonthを-1する
 		date = new Date(year, month - 1, 1)
@@ -52,7 +52,7 @@ module.exports = {
 			count += this.getCount robot, key
 			date = date.addHours(24)
 		return count
-	
+
 	getCountYear: (robot, year) ->
 		date = new Date(year, 0, 1)
 		count = 0
@@ -60,7 +60,7 @@ module.exports = {
 			count += this.getCountMonth robot, year, month
 			date = date.addMonths(1)
 		return count
-	
+
 	getCountTotal: (robot) ->
 		firstday = this.getFirstDay robot
 		if firstday == null
@@ -77,7 +77,7 @@ module.exports = {
 			if Date.compare(fromDate, toDate) == 1
 				break
 		return count
-		
+
 	clearCount: (robot, key) ->
 		count = robot.brain.get key
 		if count == null
@@ -86,12 +86,12 @@ module.exports = {
 			robot.brain.remove key
 			robot.brain.save
 			return this.getCount robot, key
-		
+
 	clearCountToday: (robot) ->
 		date = new Date()
 		key = this.getKey date
 		return this.clearCount robot, key
-	
+
 	clearCountMonth: (robot, year, month) ->
 		# new Dateの時はmonthを-1する
 		date = new Date(year, month - 1, 1)
@@ -102,7 +102,7 @@ module.exports = {
 			count += this.clearCount robot, key
 			date = date.addHours(24)
 		return count
-		
+
 	clearCountYear: (robot, year) ->
 		date = new Date(year, 0, 1)
 		count = 0
@@ -110,7 +110,7 @@ module.exports = {
 			count += this.clearCountMonth robot, year, month
 			date = date.addMonths(1)
 		return count
-		
+
 	clearCountAll: (robot) ->
 		firstday = this.getFirstDay robot
 		if firstday == null
@@ -128,7 +128,7 @@ module.exports = {
 				break
 		this.clearCount robot, FIRST_DAY
 		return count
-	
+
 	addCount: (robot, key, addcount) ->
 		count = robot.brain.get key
 		if count == null
@@ -139,12 +139,12 @@ module.exports = {
 		robot.brain.set key, addnum
 		robot.brain.save
 		return robot.brain.get key
-	
+
 	addCountToday: (robot, addcount) ->
 		date = new Date()
 		key = this.getKey date
 		return this.addCount robot, key, addcount
-	
+
 	setFirstDay: (robot) ->
 		date = new Date()
 		formatted = date.toFormat 'YYYY/MM/DD'
@@ -152,10 +152,10 @@ module.exports = {
 		if firstday == null
 			robot.brain.set FIRST_DAY, formatted
 			robot.brain.save
-			
+
 	getFirstDay: (robot) ->
 		return robot.brain.get FIRST_DAY
-	
+
 	setFirstSpecificDay: (robot, ymdString) ->
 		date = new Date(ymdString)
 		formatted = date.toFormat 'YYYY/MM/DD'
