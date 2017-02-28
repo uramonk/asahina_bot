@@ -28,7 +28,7 @@ module.exports = (robot) ->
     date = new Date(year, 0, 1)
     sendMessage = ''
     while true
-      count = counter.getCountYear robot, year
+      count = counter.getCountYear robot, date.toFormat('YYYY')
       dateString = date.toFormat 'YYYY年'
       sendMessage = msgFunc.addDoughnutToMessageWithPrefixAndSuffix sendMessage, count, dateString + ': ', '\n'
       date.addYears(1)
